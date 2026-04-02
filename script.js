@@ -5,15 +5,41 @@ const msalConfig = {
     clientId: "41e77794-2cef-4424-b53e-27ef6ac330a4",
     authority: "https://login.microsoftonline.com/b3de72ce-b6b0-4a0c-b0f8-bf01821c6298",
     redirectUri: "https://niyamaredia.github.io/donatewise-storefront-main/"
+  },
+  cache: {
+    cacheLocation: "sessionStorage"
   }
 };
 
 const msalInstance = new msal.PublicClientApplication(msalConfig);
 
+async function handleRedirect() {
+  try {
+    const response = await msalInstance.handleRedirectPromise();
+
+    if (response && response.account) {
+      msalInstance.setActiveAccount(response.account);
+      window.location.href = "home.html";
+      return;
+    }
+
+    const accounts = msalInstance.getAllAccounts();
+    if (accounts.length > 0) {
+      msalInstance.setActiveAccount(accounts[0]);
+    }
+  } catch (error) {
+    console.error("Redirect handling error:", error);
+  }
+}
+
 function signIn() {
   msalInstance.loginRedirect({
     scopes: ["openid", "profile", "User.Read"]
   });
+}
+
+function isLoggedIn() {
+  return msalInstance.getAllAccounts().length > 0;
 }
 
 const apiUrl =
@@ -771,9 +797,28 @@ function initPage() {
   setupChatWidget();
 }
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
+  await handleRedirect();
+
   const btn = document.getElementById("microsoftLoginBtn");
-  if (btn) btn.addEventListener("click", signIn);
+  if (btn) {
+    btn.addEventListener("click", () => {
+      if (!isLoggedIn()) {
+        signIn();
+      } else {
+        window.location.href = "home.html";
+      }
+    });
+  }
+
+  const isLoginPage =
+    window.location.pathname.endsWith("/") ||
+    window.location.pathname.endsWith("index.html");
+
+  if (!isLoginPage && !isLoggedIn()) {
+    window.location.href = "index.html";
+    return;
+  }
 
   initPage();
 });
