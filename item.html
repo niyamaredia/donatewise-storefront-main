@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DonateWise | Item Details</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="brand-block">
+        <p class="eyebrow">DONATEWISE</p>
+        <h1>Item Details</h1>
+        <p class="subtitle">Detailed storefront information for the selected listing.</p>
+      </div>
+
+      <nav class="top-nav">
+        <a class="nav-btn ghost" href="index.html">Log Out</a>
+        <a class="nav-btn primary" href="dashboard.html">Dashboard</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page-section">
+    <div class="page-topbar">
+      <a class="back-link" href="home.html">← Back to Inventory</a>
+    </div>
+
+    <section class="detail-card reveal">
+      <img id="detailImage" src="images/default.jpg" class="detail-image" alt="Item image">
+
+      <div class="detail-info">
+        <div class="item-top-row">
+          <h2 id="detailName">Loading...</h2>
+          <span id="detailStatusBadge" class="status-badge available">Available</span>
+        </div>
+
+        <div class="detail-meta">
+          <p><strong>Category:</strong> <span id="detailCategory">-</span></p>
+          <p><strong>Condition:</strong> <span id="detailCondition">-</span></p>
+          <p class="detail-price"><strong>Price:</strong> <span id="detailPrice">-</span></p>
+          <p><strong>Status:</strong> <span id="detailStatusText">-</span></p>
+          <p><strong>Description:</strong> <span id="detailDescription">Loading item details...</span></p>
+        </div>
+
+        <div class="action-group">
+          <button class="action-btn status-action" data-status="Available">Mark as Available</button>
+          <button class="action-btn status-action" data-status="Pending Pickup">Mark as Pending Pickup</button>
+          <button class="action-btn status-action" data-status="Sold">Mark as Sold</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <button id="chatToggle" class="chat-toggle" aria-label="Open help assistant">💬</button>
+
+  <section id="chatBox" class="chat-box hidden">
+    <div class="chat-header">
+      <h3>Support Assistant</h3>
+      <button id="chatClose" aria-label="Close help assistant">×</button>
+    </div>
+
+    <div class="chat-body">
+      <p class="bot-message">Need help managing this item?</p>
+
+      <div class="quick-questions">
+        <button class="quick-question" data-answer="This page shows the selected item’s category, condition, price, and status.">
+          What does this page show?
+        </button>
+        <button class="quick-question" data-answer="Use these buttons to demonstrate status changes in the interface.">
+          How do I manage item status?
+        </button>
+      </div>
+
+      <div id="chatResponses"></div>
+    </div>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>

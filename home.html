@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DonateWise | Live Storefront</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="brand-block">
+        <p class="eyebrow">DONATEWISE</p>
+        <h1>Staff Storefront</h1>
+        <p class="subtitle">Live internal inventory powered by SharePoint and Power Automate.</p>
+      </div>
+
+      <nav class="top-nav">
+        <a class="nav-btn ghost" href="index.html">Log Out</a>
+        <a class="nav-btn primary" href="dashboard.html">Dashboard</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container main-shell">
+    <section class="hero-panel reveal">
+      <div class="hero-copy">
+        <span class="hero-tag">FINAL MVP</span>
+        <h2>Real-time visibility of available donated items</h2>
+        <p>
+          DonateWise helps staff browse listings, view status updates, and reduce manual work
+          through a connected storefront experience that reflects live SharePoint data.
+        </p>
+
+        <div class="hero-actions">
+          <a href="#inventorySection" class="nav-btn primary">Browse Inventory</a>
+          <a href="dashboard.html" class="nav-btn ghost-dark">View Insights</a>
+        </div>
+      </div>
+
+      <div class="hero-stats">
+        <article class="hero-stat-card accent-blue">
+          <p>System Status</p>
+          <h3>Connected</h3>
+          <span class="stat-note">SharePoint + Power Automate live</span>
+        </article>
+
+        <article class="hero-stat-card accent-green">
+          <p>Experience</p>
+          <h3>Dynamic</h3>
+          <span class="stat-note">New SharePoint items appear here</span>
+        </article>
+
+        <article class="hero-stat-card accent-purple">
+          <p>Purpose</p>
+          <h3>Storefront</h3>
+          <span class="stat-note">Focused on access and visibility</span>
+        </article>
+      </div>
+    </section>
+
+    <section class="toolbar reveal" id="inventorySection">
+      <div class="toolbar-top">
+        <div>
+          <p class="section-label">LIVE INVENTORY</p>
+          <h3 class="section-title">Storefront Listings</h3>
+        </div>
+
+        <div class="sync-badge" id="syncBadge">
+          <span class="sync-dot"></span>
+          <span id="syncText">Waiting for sync...</span>
+        </div>
+      </div>
+
+      <div class="search-wrap">
+        <input type="text" id="searchInput" placeholder="Search inventory by item name..." />
+      </div>
+
+      <div class="filter-wrap">
+        <button class="filter-btn active" data-category="all">All</button>
+        <button class="filter-btn" data-category="electronics">Electronics</button>
+        <button class="filter-btn" data-category="furniture">Furniture</button>
+        <button class="filter-btn" data-category="clothing">Clothing</button>
+        <button class="filter-btn" data-category="household">Household</button>
+        <button class="filter-btn" data-category="office supplies">Office Supplies</button>
+        <button class="filter-btn" data-category="accessories">Accessories</button>
+      </div>
+    </section>
+
+    <section class="inventory-grid" id="inventoryGrid">
+      <div class="loading-state">
+        <div class="spinner"></div>
+        <p>Loading live inventory...</p>
+      </div>
+    </section>
+  </main>
+
+  <button id="chatToggle" class="chat-toggle" aria-label="Open help assistant">💬</button>
+
+  <section id="chatBox" class="chat-box hidden">
+    <div class="chat-header">
+      <h3>Support Assistant</h3>
+      <button id="chatClose" aria-label="Close help assistant">×</button>
+    </div>
+
+    <div class="chat-body">
+      <p class="bot-message">Need help using the storefront?</p>
+
+      <div class="quick-questions">
+        <button class="quick-question" data-answer="This storefront is connected to SharePoint, so new items and status changes appear here after refresh.">
+          How does this stay updated?
+        </button>
+        <button class="quick-question" data-answer="Use the search bar or category filters to quickly narrow down the listings.">
+          How do I find items faster?
+        </button>
+        <button class="quick-question" data-answer="Available means ready for access, Pending Pickup means reserved or in progress, and Sold means no longer available.">
+          What do the status labels mean?
+        </button>
+      </div>
+
+      <div id="chatResponses"></div>
+    </div>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>

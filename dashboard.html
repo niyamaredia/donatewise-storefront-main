@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DonateWise | Staff Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="brand-block">
+        <p class="eyebrow">DONATEWISE</p>
+        <h1>Staff Dashboard</h1>
+        <p class="subtitle">Live operational view of inventory activity and current status.</p>
+      </div>
+
+      <nav class="top-nav">
+        <a class="nav-btn ghost" href="index.html">Log Out</a>
+        <a class="nav-btn primary" href="home.html">Back to Inventory</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="dashboard-page">
+    <div class="dashboard-content">
+      <section class="dashboard-grid reveal">
+        <article class="dashboard-stat stat-blue">
+          <p>Total Items</p>
+          <h3 id="statTotal">0</h3>
+        </article>
+
+        <article class="dashboard-stat stat-green">
+          <p>Available</p>
+          <h3 id="statAvailable">0</h3>
+        </article>
+
+        <article class="dashboard-stat stat-amber">
+          <p>Pending Pickup</p>
+          <h3 id="statPending">0</h3>
+        </article>
+
+        <article class="dashboard-stat stat-red">
+          <p>Items Sold</p>
+          <h3 id="statSold">0</h3>
+        </article>
+      </section>
+
+      <section class="table-card reveal">
+        <div class="table-header-row">
+          <div>
+            <p class="section-label">LIVE ACTIVITY</p>
+            <h2>Recent Inventory Updates</h2>
+          </div>
+          <div class="sync-badge compact">
+            <span class="sync-dot"></span>
+            <span id="dashboardSyncText">Waiting for sync...</span>
+          </div>
+        </div>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Category</th>
+              <th>Status</th>
+              <th>Condition</th>
+            </tr>
+          </thead>
+          <tbody id="dashboardTableBody">
+            <tr>
+              <td colspan="4">Loading live dashboard data...</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    </div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
