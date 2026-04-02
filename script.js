@@ -19,20 +19,30 @@ async function handleRedirect() {
 
     if (response && response.account) {
       msalInstance.setActiveAccount(response.account);
+      localStorage.setItem("dw_logged_in", "true");
       window.location.href = "home.html";
-      return;
+      return true;
     }
 
     const accounts = msalInstance.getAllAccounts();
     if (accounts.length > 0) {
       msalInstance.setActiveAccount(accounts[0]);
+      localStorage.setItem("dw_logged_in", "true");
+      return true;
     }
+
+    return false;
   } catch (error) {
     console.error("Redirect handling error:", error);
+    return false;
   }
 }
 
 function signIn() {
+  if (sessionStorage.getItem("msal_login_started") === "true") return;
+
+  sessionStorage.setItem("msal_login_started", "true");
+
   msalInstance.loginRedirect({
     scopes: ["openid", "profile", "User.Read"]
   });
@@ -798,7 +808,9 @@ function initPage() {
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
-  await handleRedirect();
+  const loggedInFromRedirect = await handleRedirect();
+
+  sessionStorage.removeItem("msal_login_started");
 
   const btn = document.getElementById("microsoftLoginBtn");
   if (btn) {
@@ -817,6 +829,10 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   if (!isLoginPage && !isLoggedIn()) {
     window.location.href = "index.html";
+    return;
+  }
+
+  if (loggedInFromRedirect && isLoginPage) {
     return;
   }
 
