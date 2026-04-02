@@ -2,8 +2,8 @@
 
 const msalConfig = {
   auth: {
-    clientId: "PASTE_YOUR_CLIENT_ID_HERE",
-    authority: "https://login.microsoftonline.com/PASTE_YOUR_TENANT_ID_HERE",
+    clientId: "41e77794-2cef-4424-b53e-27ef6ac330a4",
+    authority: "https://login.microsoftonline.com/b3de72ce-b6b0-4a0c-b0f8-bf01821c6298",
     redirectUri: "https://niyamaredia.github.io/donatewise-storefront-main/"
   }
 };
