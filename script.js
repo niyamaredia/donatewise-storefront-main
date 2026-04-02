@@ -14,7 +14,6 @@ let storefrontItems = [];
 
 /* -------------------------------------------------
    FALLBACK ITEM DATA
-   Used for descriptions and stable key matching
 ------------------------------------------------- */
 
 const itemDescriptions = {
@@ -47,11 +46,19 @@ const itemDescriptions = {
   books:
     "A selection of books available through the inventory listing.",
   guitar:
-    "Guitar item listed in the internal storefront inventory."
+    "Guitar item listed in the internal storefront inventory.",
+  blankets:
+    "Blankets available through the internal storefront inventory.",
+  bicycle:
+    "Bicycle listing available in the staff storefront.",
+  hats:
+    "Hat listing available in the staff storefront.",
+  shelf:
+    "Shelf listing available in the internal storefront inventory."
 };
 
 /* -------------------------------------------------
-   GENERIC HELPERS
+   HELPERS
 ------------------------------------------------- */
 
 function $(id) {
@@ -82,7 +89,11 @@ function normalizeText(value) {
 function getFieldValue(field, fallback = "") {
   if (field === null || field === undefined) return fallback;
 
-  if (typeof field === "string" || typeof field === "number" || typeof field === "boolean") {
+  if (
+    typeof field === "string" ||
+    typeof field === "number" ||
+    typeof field === "boolean"
+  ) {
     return field;
   }
 
@@ -158,8 +169,6 @@ function setSyncText(message) {
 
 /* -------------------------------------------------
    IMAGE HELPERS
-   Since SharePoint image column is not shown in your list,
-   we generate a clean placeholder image from title/category.
 ------------------------------------------------- */
 
 function getCategoryEmoji(category) {
@@ -242,7 +251,7 @@ function getDescriptionForItem(title, category, condition, status) {
 }
 
 /* -------------------------------------------------
-   FLOW / SHAREPOINT FETCH
+   FLOW FETCH
 ------------------------------------------------- */
 
 async function fetchLiveInventory() {
@@ -273,19 +282,35 @@ async function fetchLiveInventory() {
 
 /* -------------------------------------------------
    DATA MAPPING
+   NEW FLOW FIELD MAPPING:
+   Title = item name
+   field_1.Value = category
+   field_2 = price
+   field_3.Value = status
+   field_4.Value = condition
 ------------------------------------------------- */
 
 function mapSharePointItems(rawItems) {
   return rawItems.map((item, index) => {
-    const title = String(getFieldValue(item.Title, `Untitled Item ${index + 1}`)).trim();
-    const category = String(getFieldValue(item.Category, "Uncategorized")).trim();
-    const price = safeNumber(getFieldValue(item.Price, 0), 0);
-    const status = formatStatus(getFieldValue(item.Status, "Available"));
-    const condition = String(getFieldValue(item.Condition, "Good")).trim();
+    const title = String(
+      getFieldValue(item.Title, `Untitled Item ${index + 1}`)
+    ).trim();
 
-    const key =
-      slugify(title) ||
-      `item-${index + 1}`;
+    const category = String(
+      getFieldValue(item.field_1?.Value || item.field_1, "Uncategorized")
+    ).trim();
+
+    const price = safeNumber(getFieldValue(item.field_2, 0), 0);
+
+    const status = formatStatus(
+      getFieldValue(item.field_3?.Value || item.field_3, "Available")
+    );
+
+    const condition = String(
+      getFieldValue(item.field_4?.Value || item.field_4, "Good")
+    ).trim();
+
+    const key = slugify(title) || `item-${index + 1}`;
 
     return {
       id: key,
@@ -638,8 +663,6 @@ async function loadItemDetails() {
 
 /* -------------------------------------------------
    STATUS BUTTONS (UI ONLY)
-   This updates the item detail page visually.
-   It does not write back to SharePoint.
 ------------------------------------------------- */
 
 function setupStatusButtons() {
