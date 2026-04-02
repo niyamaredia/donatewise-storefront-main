@@ -55,6 +55,14 @@ function signIn() {
   });
 }
 
+function signOut() {
+  if (!msalInstance) return;
+
+  msalInstance.logoutRedirect({
+    postLogoutRedirectUri: "https://niyamaredia.github.io/donatewise-storefront-main/"
+  });
+}
+
 function isLoggedIn() {
   if (!msalInstance) {
     return localStorage.getItem("dw_logged_in") === "true";
@@ -843,6 +851,15 @@ document.addEventListener("DOMContentLoaded", async () => {
     window.location.href = "index.html";
     return;
   }
+
+  document.querySelectorAll('a[href="index.html"]').forEach((link) => {
+    if (link.textContent.toLowerCase().includes("log out")) {
+      link.addEventListener("click", (e) => {
+        e.preventDefault();
+        signOut();
+      });
+    }
+  });
 
   initPage();
 });
