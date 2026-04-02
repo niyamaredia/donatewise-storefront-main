@@ -1,3 +1,21 @@
+/* ================= ENTRA LOGIN ================= */
+
+const msalConfig = {
+  auth: {
+    clientId: "PASTE_YOUR_CLIENT_ID_HERE",
+    authority: "https://login.microsoftonline.com/PASTE_YOUR_TENANT_ID_HERE",
+    redirectUri: "https://niyamaredia.github.io/donatewise-storefront-main/"
+  }
+};
+
+const msalInstance = new msal.PublicClientApplication(msalConfig);
+
+function signIn() {
+  msalInstance.loginRedirect({
+    scopes: ["openid", "profile", "User.Read"]
+  });
+}
+
 const apiUrl =
   "https://defaultb3de72ceb6b04a0cb0f8bf01821c62.98.environment.api.powerplatform.com/powerautomate/automations/direct/workflows/49142a2f12af4da183ce32a74216ca9d/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=su2OCBJkJ2Rw_nIbk6SZomBnz0cep0BqtSo9KX-XlW4";
 
@@ -753,4 +771,9 @@ function initPage() {
   setupChatWidget();
 }
 
-document.addEventListener("DOMContentLoaded", initPage);
+document.addEventListener("DOMContentLoaded", () => {
+  const btn = document.getElementById("microsoftLoginBtn");
+  if (btn) btn.addEventListener("click", signIn);
+
+  initPage();
+});
