@@ -2,37 +2,31 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>DonateWise Login</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
-
 <body class="login-body">
   <main class="login-page">
     <section class="login-card reveal">
-
       <div class="login-brand">
         <p class="eyebrow">DONATEWISE</p>
         <h1>Staff Inventory Portal</h1>
         <p>Secure internal storefront powered by SharePoint</p>
       </div>
 
-      <!-- Microsoft Login Button -->
-      <button id="microsoftLoginBtn" class="login-btn">
+      <button id="microsoftLoginBtn" class="login-btn" type="button">
         Sign in with Microsoft
       </button>
 
-      <p class="login-note">
-        Access managed through Microsoft Entra ID
-      </p>
-
+      <p class="login-note">Access managed through Microsoft Entra ID</p>
     </section>
   </main>
 
-  <!-- MSAL (Microsoft login library) -->
   <script src="https://alcdn.msauth.net/browser/2.38.3/js/msal-browser.min.js"></script>
-
-  <!-- Your JS -->
-  <script src="https://alcdn.msauth.net/browser/2.38.3/js/msal-browser.min.js"></script>
-<script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
