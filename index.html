@@ -1,43 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DonateWise | Login</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <title>DonateWise Login</title>
+  <link rel="stylesheet" href="style.css">
 </head>
+
 <body class="login-body">
   <main class="login-page">
     <section class="login-card reveal">
+
       <div class="login-brand">
         <p class="eyebrow">DONATEWISE</p>
         <h1>Staff Inventory Portal</h1>
-        <p>Connected storefront for Drop-In Centre staff powered by SharePoint data.</p>
+        <p>Secure internal storefront powered by SharePoint</p>
       </div>
 
-      <form class="login-form" id="loginForm">
-        <label for="email">Staff Email</label>
-        <input type="email" id="email" placeholder="name@thedi.ca" required>
+      <!-- Microsoft Login Button -->
+      <button id="microsoftLoginBtn" class="login-btn">
+        Sign in with Microsoft
+      </button>
 
-        <label for="password">Password</label>
-        <input type="password" id="password" placeholder="Enter password" required>
+      <p class="login-note">
+        Access managed through Microsoft Entra ID
+      </p>
 
-        <button type="submit" class="login-btn">Access Portal</button>
-      </form>
-
-      <p class="login-note">Live MVP connected to SharePoint inventory data</p>
     </section>
   </main>
 
-  <script>
-    const loginForm = document.getElementById("loginForm");
-    loginForm.addEventListener("submit", function (e) {
-      e.preventDefault();
-      window.location.href = "home.html";
-    });
-  </script>
+  <!-- MSAL (Microsoft login library) -->
+  <script src="https://alcdn.msauth.net/browser/2.38.3/js/msal-browser.min.js"></script>
+
+  <!-- Your JS -->
+  <script src="script.js"></script>
 </body>
 </html>
