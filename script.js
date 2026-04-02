@@ -1,4 +1,4 @@
-const apiUrl = "PASTE_YOUR_FLOW_URL_HERE"; // keep your same URL
+const apiUrl = "https://defaultb3de72ceb6b04a0cb0f8bf01821c62.98.environment.api.powerplatform.com/powerautomate/automations/direct/workflows/49142a2f12af4da183ce32a74216ca9d/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=su2OCBJkJ2Rw_nIbk6SZomBnz0cep0BqtSo9KX-XlW4"; // keep your same URL
 
 let storefrontItems = [];
 
