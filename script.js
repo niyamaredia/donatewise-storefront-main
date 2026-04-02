@@ -11,9 +11,14 @@ const msalConfig = {
   }
 };
 
-const msalInstance = new msal.PublicClientApplication(msalConfig);
+const msalInstance =
+  typeof msal !== "undefined"
+    ? new msal.PublicClientApplication(msalConfig)
+    : null;
 
 async function handleRedirect() {
+  if (!msalInstance) return false;
+
   try {
     const response = await msalInstance.handleRedirectPromise();
 
@@ -39,6 +44,8 @@ async function handleRedirect() {
 }
 
 function signIn() {
+  if (!msalInstance) return;
+
   if (sessionStorage.getItem("msal_login_started") === "true") return;
 
   sessionStorage.setItem("msal_login_started", "true");
@@ -49,6 +56,10 @@ function signIn() {
 }
 
 function isLoggedIn() {
+  if (!msalInstance) {
+    return localStorage.getItem("dw_logged_in") === "true";
+  }
+
   return msalInstance.getAllAccounts().length > 0;
 }
 
@@ -808,9 +819,14 @@ function initPage() {
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
-  const loggedInFromRedirect = await handleRedirect();
+  const isLoginPage =
+    window.location.pathname.endsWith("/") ||
+    window.location.pathname.endsWith("index.html");
 
-  sessionStorage.removeItem("msal_login_started");
+  if (isLoginPage && msalInstance) {
+    await handleRedirect();
+    sessionStorage.removeItem("msal_login_started");
+  }
 
   const btn = document.getElementById("microsoftLoginBtn");
   if (btn) {
@@ -823,16 +839,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
   }
 
-  const isLoginPage =
-    window.location.pathname.endsWith("/") ||
-    window.location.pathname.endsWith("index.html");
-
   if (!isLoginPage && !isLoggedIn()) {
     window.location.href = "index.html";
-    return;
-  }
-
-  if (loggedInFromRedirect && isLoginPage) {
     return;
   }
 
