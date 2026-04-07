@@ -306,7 +306,15 @@ function getImageUrlFromItem(item, title, category) {
     return possibleImage;
   }
 
-  return buildSvgPlaceholder(title, category);
+  let query = String(title || category || "product")
+    .replace(/\d+/g, "")
+    .replace(/inch|inches|cm|good|condition/gi, "")
+    .replace(/[-"]/g, " ")
+    .trim();
+
+  if (!query) query = "product";
+
+  return `https://source.unsplash.com/600x400/?${encodeURIComponent(query)}`;
 }
 
 /* -------------------------------------------------
