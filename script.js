@@ -306,15 +306,30 @@ function getImageUrlFromItem(item, title, category) {
     return possibleImage;
   }
 
-  let query = String(title || category || "product")
-    .replace(/\d+/g, "")
-    .replace(/inch|inches|cm|good|condition/gi, "")
-    .replace(/[-"]/g, " ")
-    .trim();
+  const imageMap = {
+    'dell monitor 24"': 'images/monitor.jpg',
+    'office chair': 'images/chair.jpg',
+    'winter jacket': 'images/jacket.jpg',
+    'laptop - hp': 'images/laptop.jpg',
+    'coffee table': 'images/table.jpg',
+    "men's dress shirts": 'images/shirts.jpg',
+    'men’s dress shirts': 'images/shirts.jpg',
+    'microwave oven': 'images/microwave.jpg',
+    'desk lamp': 'images/lamp.jpg',
+    'watch': 'images/watch.jpg',
+    'calculator': 'images/calculator.jpg',
+    'camera': 'images/camera.jpg',
+    'digital clock': 'images/clock.jpg',
+    'books': 'images/books.jpg',
+    'guitar': 'images/guitar.jpg',
+    'blankets': 'images/blankets.jpg',
+    'bicycle': 'images/bicycle.jpg',
+    'hats': 'images/hats.jpg',
+    'shelf': 'images/shelf.jpg'
+  };
 
-  if (!query) query = "product";
-
-  return `https://source.unsplash.com/600x400/?${encodeURIComponent(query)}`;
+  const normalizedTitle = String(title || "").trim().toLowerCase();
+  return imageMap[normalizedTitle] || buildSvgPlaceholder(title, category);
 }
 
 /* -------------------------------------------------
